@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head> 
+  <body class="">
+    <header class="body-font border-b mb-8">
+      <div class="container mx-auto flex flex-wrap px-10 py-5 flex-col md:flex-row items-center">
+        <a href="{% url 'home' %}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+          <span class="ml-3 text-xl">BityBoi</span>
+        </a>
+        <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400">
+          <a href="{% url 'home' %}" class="mr-5 hover:text-gray-900">All Links</a>
+        </nav>
+        <button class="inline-flex items-center bg-blue-100 border-0 py-2 px-4 focus:outline-none hover:bg-blue-200 rounded">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V4a1 1 0 011-1z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+    </header>
+    <div>
+        {% block content %}
+        {% endblock content %}
+    </div>
+  </body>
+</html>
