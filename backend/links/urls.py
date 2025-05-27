@@ -1,9 +1,11 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import root_link, LinkViewSet
 
-from .views import index, root_link, add_link
+router = DefaultRouter()
+router.register(r'links', LinkViewSet)
 
 urlpatterns = [
-    path('', index, name='home'),
-    path('<str:link_slug>/', root_link, name='root-link'),
-    path('link/create', add_link, name='create-link'),
+    path('', include(router.urls)),  # This will handle /api/links/
+    path('<str:link_slug>/', root_link, name='root-link'),  # This will handle /api/<slug>/
 ]
