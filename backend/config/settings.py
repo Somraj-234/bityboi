@@ -10,7 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8v*r!$(xqx+@n-igvf*b^7q+l_781ruxy6rihxxca!mc)++kfu'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-8v*r!$(xqx+@n-igvf*b^7q+l_781ruxy6rihxxca!mc)++kfu')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,11 +45,80 @@ INSTALLED_APPS = [
 
     #local apps
     'links',
-    'rest_framework',
     'corsheaders',
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
+    'rest_framework',
+    'rest_framework.authtoken',
+
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+
+    'drf_yasg',
 ]
 
+SITE_ID = 1
+
+# CSRF settings
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
+CSRF_COOKIE_SAMESITE = None  # Allow cross-site requests
+CSRF_COOKIE_HTTPONLY = False  # Allow JavaScript to read the cookie
+CSRF_USE_SESSIONS = False
+CSRF_COOKIE_NAME = 'csrftoken'
+CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'  # The header name to use
+
+# Rest Framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+# Password reset settings
+PASSWORD_RESET_TIMEOUT = 259200  # 3 days in seconds
+PASSWORD_RESET_CONFIRM_URL = 'auth/password/reset/confirm/{uidb64}/{token}/'
+PASSWORD_RESET_DONE_URL = 'auth/password/reset/done/'
+PASSWORD_RESET_COMPLETE_URL = 'auth/password/reset/complete/'
+
+REST_AUTH = {
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'my-app-auth',
+    'JWT_AUTH_REFRESH_COOKIE': 'my-app-refresh-token',
+    'JWT_AUTH_HTTPONLY': False,  # Allow frontend to access tokens
+    'JWT_AUTH_RETURN_EXPIRATION': True,
+    'JWT_AUTH_REFRESH_COOKIE_PATH': '/',
+    'JWT_AUTH_COOKIE_USE_CSRF': False,
+    'JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED': False,
+}
+
+JWT_AUTH = {
+    'JWT_SECRET_KEY': SECRET_KEY,
+    'JWT_ALGORITHM': 'HS256',
+    'JWT_EXPIRATION_DELTA': timedelta(hours=1),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=30),
+    'JWT_ALLOW_REFRESH': True,
+}
+
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+ACCOUNT_SESSION_REMEMBER = True
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -52,12 +126,33 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'corsheaders.middleware.CorsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React default port
+    "http://localhost:5173",  # Vite dev server
+]
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -131,3 +226,46 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Add these settings for allauth
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Email settings for development
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Print emails to console
+
+
+SITE_URL = os.getenv("FRONTEND_URL")  # Your frontend base URL
+FRONTEND_RESET_CONFIRM_PATH = '/reset-password-confirm/'  # Your frontend path
+
+REST_AUTH_PASSWORD_RESET_USE_SITES_DOMAIN = False
+
+# Google OAuth2 settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
+            'secret': os.getenv('GOOGLE_CLIENT_SECRET'),
+            'key': ''
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'offline',
+            'prompt': 'consent',
+        }
+    }
+}
+
+# Add these settings for social account
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_STORE_TOKENS = True
+
+SOCIALACCOUNT_ADAPTER = 'links.adapters.NoSignupRedirectAdapter'
+SOCIALACCOUNT_AUTO_SIGNUP = True
