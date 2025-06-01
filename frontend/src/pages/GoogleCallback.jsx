@@ -40,10 +40,10 @@ const GoogleCallback = () => {
     }, [location, navigate, socialLogin]);
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="h-screen w-full flex items-center justify-center">
             <div className="text-center">
-                <h2 className="text-xl font-semibold text-gray-700">Processing Google Sign In...</h2>
-                <p className="mt-2 text-gray-500">Please wait while we complete your sign in.</p>
+                <h2 className="text-xl font-bold text-white">Processing Google Sign In...</h2>
+                <p className="text-basemt-2 text-white">Please wait while we complete your sign in.</p>
             </div>
         </div>
     );

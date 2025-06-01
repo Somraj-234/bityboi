@@ -236,6 +236,14 @@ AUTHENTICATION_BACKENDS = [
 # Email settings for development
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Print emails to console
 
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Your Gmail address
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Your Gmail app password
+DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER')  # Your Gmail address
 
 SITE_URL = os.getenv("FRONTEND_URL")  # Your frontend base URL
 FRONTEND_RESET_CONFIRM_PATH = '/reset-password-confirm/'  # Your frontend path

@@ -175,4 +175,32 @@ export const exchangeGoogleCode = async (code) => {
     }
 };
 
+export const forgotPassword = async (email) => {
+    return api.post('/auth/password/reset/', { email });
+}
+
+export const changePassword = async (data) => {
+    return api.post('/auth/password/change/', data);
+}
+
+export const resetPassword = async (email, new_password, confirm_password) => {
+    const response = await api.post('/auth/password/reset/', {
+        email,
+        new_password,
+        confirm_password
+    });
+    return response.data;
+}
+
+export const requestPasswordResetOTP = async (email) => {
+    const response = await api.post('/auth/password/reset/otp/', { email });
+    return response.data;
+}
+
+export const verifyOTP = async (email, otp) => {
+    const response = await api.post('/auth/password/reset/verify/', { email, otp });
+    return response.data;
+}
+
+
 

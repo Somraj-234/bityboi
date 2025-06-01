@@ -4,6 +4,7 @@ from django.views.generic import RedirectView
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from django.contrib.auth import views as auth_views
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -24,6 +25,15 @@ urlpatterns = [
     path('api/auth/', include('dj_rest_auth.urls')),  # login/logout/password reset
     path('api/auth/registration/', include('dj_rest_auth.registration.urls')),  # registration
     path('accounts/', include('allauth.urls')),
+    
+    # Password Reset URLs
+    path('api/auth/password/reset/confirm/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(),
+         name='password_reset_confirm'),
+    path('api/auth/password/reset/complete/',
+         auth_views.PasswordResetCompleteView.as_view(),
+         name='password_reset_complete'),
+    
     # Swagger docs at root
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
