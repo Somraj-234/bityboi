@@ -39,12 +39,12 @@ function Nav() {
       <div>
         {dataPaths.includes(location.pathname) ? (
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 bg-[#1a1a1b] hover:bg-[#161616] transition-all duration-300 px-4 sm:px-6 py-3 sm:py-4 rounded-xl cursor-pointer text-sm sm:text-base" onClick={()=>navigate('/create-link')}>
+            <div className="flex items-center gap-2 bg-[#1a1a1b] hover:bg-[#161616] transition-all duration-300 px-4 py-3 rounded-lg cursor-pointer text-sm sm:text-base" onClick={()=>navigate('/create-link')}>
               Create New <Plus className="w-4 h-4 sm:w-5 sm:h-5"/>
             </div>
             <div className="relative">
               <div
-                className="w-11 sm:w-14 h-11 sm:h-14 rounded-full bg-[#1a1a1b] hover:bg-[#161616] flex items-center justify-center cursor-pointer"
+                className="w-11 sm:w-12 h-11 sm:h-12 rounded-full bg-[#1a1a1b] hover:bg-[#161616] flex items-center justify-center cursor-pointer"
                 onClick={() => setShowDropdown(!showDropdown)}
               >
                 <UserRound className="w-5 h-5 sm:w-6 sm:h-6" />

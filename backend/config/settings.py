@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-8v*r!$(xqx+@n-igvf*b^7q+l_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["bityboi.onrender.com"]
+ALLOWED_HOSTS = ["bityboi.onrender.com","localhost","127.0.0.1"]
 
 
 # Application definition
@@ -187,6 +187,13 @@ DATABASES = {
     )
 }
 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
