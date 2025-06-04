@@ -37,7 +37,7 @@ function OrangeButton({
             onClick={() => type !== "submit" && navigate(to)}
           >
             <div className="flex items-center justify-center gap-2 cursor-pointer">
-              <span className={`text-${textColor} font-bold text-lg`}>
+              <span className={`text-${textColor} font-bold text-base`}>
                 {isLoading ? loadingText : text }
               </span>
 

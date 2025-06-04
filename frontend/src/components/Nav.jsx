@@ -26,7 +26,7 @@ function Nav() {
   },[])
 
   return (
-    <div className="nav w-full h-20 sm:h-24 pt-5 bg-[#0D0D0D] border-b border-white/10">
+    <div className="nav w-full h-20 sm:h-20 pt-4 bg-[#0D0D0D] border-b border-white/10">
         <div className="flex items-center justify-between gap-4 bg-transparent border-white/10 text-white pb-4 sm:px-16 px-4">
       <div className="logo">
         <Link to="/">
@@ -47,7 +47,7 @@ function Nav() {
                 className="w-11 sm:w-14 h-11 sm:h-14 rounded-full bg-[#1a1a1b] hover:bg-[#161616] flex items-center justify-center cursor-pointer"
                 onClick={() => setShowDropdown(!showDropdown)}
               >
-                <UserRound className="w-5 h-5 sm:w-7 sm:h-7" />
+                <UserRound className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
               {showDropdown && (
                 <div
@@ -67,10 +67,10 @@ function Nav() {
         ):(
           <div className="flex items-center gap-4">
             <Link to="https://x.com/somrajjj" target="_blank">
-        <button className="relative flex items-center justify-center w-10 sm:w-14 h-10 sm:h-14 overflow-hidden rounded-lg sm:rounded-xl bg-[#0E0E10]/60 hover:bg-[#121214] transition-all duration-300 cursor-pointer">
-        <img src="./x.svg" alt="" className="w-4 h-4 sm:w-7 sm:h-7" />
+        <button className="relative flex items-center justify-center w-10 sm:w-12 h-10 sm:h-12 overflow-hidden rounded-lg sm:rounded-lg bg-[#0E0E10]/60 hover:bg-[#121214] transition-all duration-300 cursor-pointer">
+        <img src="./x.svg" alt="" className="w-4 h-4 sm:w-5 sm:h-5" />
           <div
-            className="absolute inline-flex items-center justify-center rounded-lg sm:rounded-xl p-[1.4px] w-10 sm:w-14 h-10 sm:h-14"
+            className="absolute inline-flex items-center justify-center rounded-lg sm:rounded-lg p-[1.4px] w-10 sm:w-12 h-10 sm:h-12"
             style={{
               background:
                 "linear-gradient(107deg, rgba(163, 163, 163, 0.45), rgba(61, 61, 61, 0.2))",
@@ -89,7 +89,7 @@ function Nav() {
         </button>
         </Link>
         <Link to="https://github.com/Somraj-234/bityboi" target="_blank">
-        <button className="relative flex items-center justify-center w-44 sm:w-52 h-10 sm:h-14 overflow-hidden rounded-lg sm:rounded-xl bg-[#0E0E10]/60 hover:bg-[#121214] transition-all duration-300 cursor-pointer">
+        <button className="relative flex items-center justify-center w-44 sm:w-48 h-10 sm:h-12 overflow-hidden rounded-lg sm:rounded-lg bg-[#0E0E10]/60 hover:bg-[#121214] transition-all duration-300 cursor-pointer">
         <div className="flex items-center gap-3">
             <Star fill="white" className="w-4 h-4 sm:w-5 sm:h-5" />
             <span className="text-white font-bold text-sm sm:text-base">
@@ -97,7 +97,7 @@ function Nav() {
             </span>
           </div>
           <div
-            className="absolute inline-flex items-center justify-center rounded-lg sm:rounded-xl p-[1.4px] w-44 sm:w-52 h-10 sm:h-14"
+              className="absolute inline-flex items-center justify-center rounded-lg sm:rounded-lg p-[1.4px] w-44 sm:w-48 h-10 sm:h-12"
             style={{
               background:
                 "linear-gradient(107deg, rgba(163, 163, 163, 0.45), rgba(61, 61, 61, 0.2))",
