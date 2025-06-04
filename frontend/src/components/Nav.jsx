@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Star } from "lucide-react";
+import { LogOut, Plus, Star, UserRound } from "lucide-react";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Nav() {
+  const {logout} = useAuth();
+  const location = useLocation();
+  const dataPaths = ['/dashboard', '/create-link'];
+  const navigate = useNavigate();
+  const dropdownRef = useRef(null);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  useEffect(()=>{
+    const handleClickOutside = (event)=>{
+      if(dropdownRef.current && !dropdownRef.current.contains(event.target)){
+        setShowDropdown(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return ()=>{
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+  },[])
+
   return (
     <div className="nav w-full h-20 sm:h-24 pt-5 bg-[#0D0D0D] border-b border-white/10">
         <div className="flex items-center justify-between gap-4 bg-transparent border-white/10 text-white pb-4 sm:px-16 px-4">
@@ -14,20 +36,37 @@ function Nav() {
           </div>
         </Link>
       </div>
-      <div className="flex items-end gap-4">
-        {/* <div className="relative inline-flex items-center justify-center rounded-[28px] px-[1px] py-[1px] bg-transparent overflow-hidden">
-          <div className="absolute inset-0 rounded-[28px] bg-gradient-to-r from-[#A3A3A3]/45 to-[#3D3D3D]/20 pointer-events-none z-0"></div>
-
-          <div className="relative z-10 flex items-center gap-2 px-6 py-3 rounded-[26px] bg-[#0E0E10]">
-            <span role="img" aria-label="star">
-              ⭐
-            </span>
-            <span className="text-white font-semibold text-lg">
-              Star This Project
-            </span>
+      <div>
+        {dataPaths.includes(location.pathname) ? (
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 bg-[#1a1a1b] hover:bg-[#161616] transition-all duration-300 px-4 sm:px-6 py-3 sm:py-4 rounded-xl cursor-pointer text-sm sm:text-base" onClick={()=>navigate('/create-link')}>
+              Create New <Plus className="w-4 h-4 sm:w-5 sm:h-5"/>
+            </div>
+            <div className="relative">
+              <div
+                className="w-11 sm:w-14 h-11 sm:h-14 rounded-full bg-[#1a1a1b] hover:bg-[#161616] flex items-center justify-center cursor-pointer"
+                onClick={() => setShowDropdown(!showDropdown)}
+              >
+                <UserRound className="w-5 h-5 sm:w-7 sm:h-7" />
+              </div>
+              {showDropdown && (
+                <div
+                  ref={dropdownRef}
+                  className="absolute right-0 mt-2 w-40 bg-[#1a1a1b] hover:bg-[#161616] border border-white/10 rounded-xl shadow-lg z-50 py-2 transition-all duration-300 cursor-pointer"
+                >
+                  <button
+                    className="flex items-center justify-center gap-2 w-full text-left px-4 py-2 text-red-400"
+                    onClick={logout}
+                  >
+                    Logout <LogOut size={20}/>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
-        </div> */}
-        <Link to="https://x.com/somrajjj" target="_blank">
+        ):(
+          <div className="flex items-center gap-4">
+            <Link to="https://x.com/somrajjj" target="_blank">
         <button className="relative flex items-center justify-center w-10 sm:w-14 h-10 sm:h-14 overflow-hidden rounded-lg sm:rounded-xl bg-[#0E0E10]/60 hover:bg-[#121214] transition-all duration-300 cursor-pointer">
         <img src="./x.svg" alt="" className="w-4 h-4 sm:w-7 sm:h-7" />
           <div
@@ -76,9 +115,10 @@ function Nav() {
           ></div>
         </button>
         </Link>
+        </div>
+        )}
       </div>
       </div>
-      {/* <div className="border-b border-white/10"/> */}
     </div>
   );
 }

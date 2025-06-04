@@ -6,16 +6,16 @@ import { ChevronRight, Github } from "lucide-react";
 import { useNavigate, Outlet,useLocation  } from "react-router-dom";
 
 function Layout() {
-  const navigate = useNavigate();
     const location = useLocation();
-    const hscreenPaths = ['/','/login', '/forgot-password', '/register'];
-    const isHomePage = location.pathname === '/' || location.pathname === '/home';
+    const hscreenPaths = ['/','/login', '/forgot-password','/create-link'];
+    const dataPaths = ['/dashboard', '/create-link'];
 
 
   return (
     <div className={`w-full ${hscreenPaths.includes(location.pathname) ? 'h-screen' : 'min-h-screen'} bg-gradient-to-b from-[#0A0A0B] to-[#141415] flex flex-col`}>
       <Nav />
-      <div className="flex flex-col items-center justify-center relative w-full h-full overflow-y-hidden">
+      <div className="flex flex-col items-center justify-center relative w-full h-screen overflow-y-hidden">
+        {!dataPaths.includes(location.pathname) && (
       <GridPattern
           squares={[
             [4, 4],
@@ -36,12 +36,16 @@ function Layout() {
             "inset-x-0 h-[100%]"
           )}
         />
-        <Outlet />
+        )}
+          <Outlet />
+        
+        {!dataPaths.includes(location.pathname) && (
         <div className="w-full absolute bottom-4 left-0 right-0 flex justify-center sm:justify-start px-4">
           <p className="text-white text-sm">
             Built with 🤍 by <span className="font-bold">Somraj</span>
           </p>
         </div>
+        )}
       </div>
     </div>
   );

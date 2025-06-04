@@ -2,7 +2,7 @@ import React from "react";
 import Nav from "../components/Nav";
 import { GridPattern } from "../components/magicui/grid-pattern";
 import { cn } from "@/lib/utils";
-import { ChevronRight, Github } from "lucide-react";
+import { ChevronRight, Github, Link } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import OrangeButton from "../components/OrangeButton";
 function home() {
@@ -45,7 +45,7 @@ function home() {
             <h1 className="text-white text-5xl sm:text-6xl font-bold capitalize text-center">
            Smaller🤏🏼is better
             </h1>
-          </div> */}
+          </div> */} 
 
       <h1 className="relative text-white text-6xl sm:text-8xl font-bold capitalize text-center w-full">
         Link's Size <br /> Does Matter
@@ -60,7 +60,7 @@ function home() {
         text="Let's Make it Short"
         to="/dashboard"
         isIcon={true}
-        Icon={ChevronRight}
+        Icon={Link}
       />
     </div>
   );

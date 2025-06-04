@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8000/api'
+const API_URL = import.meta.env.VITE_SERVER_URL
 
 // Create axios instance with default config
 const api = axios.create({
@@ -201,6 +201,3 @@ export const verifyOTP = async (email, otp) => {
     const response = await api.post('/auth/password/reset/verify/', { email, otp });
     return response.data;
 }
-
-
-

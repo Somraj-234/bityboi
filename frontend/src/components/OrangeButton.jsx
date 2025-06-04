@@ -24,7 +24,16 @@ function OrangeButton({
     <div>
         <button
             type={type}
-            className={`relative flex items-center justify-center ${width} h-14 overflow-hidden ${rounded} bg-gradient-to-b from-[${fromGradient}] to-[${toGradient}] hover:from-[${hoverFromGradient}] hover:to-[${hoverToGradient}] transition-all duration-300 cursor-pointer`}
+            className={`relative flex items-center justify-center ${width} h-14 overflow-hidden ${rounded} transition-all duration-300 cursor-pointer`}
+            style={{
+              background: `linear-gradient(to bottom, ${fromGradient}, ${toGradient})`,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = `linear-gradient(to bottom, ${hoverFromGradient}, ${hoverToGradient})`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = `linear-gradient(to bottom, ${fromGradient}, ${toGradient})`;
+            }}
             onClick={() => type !== "submit" && navigate(to)}
           >
             <div className="flex items-center justify-center gap-2 cursor-pointer">

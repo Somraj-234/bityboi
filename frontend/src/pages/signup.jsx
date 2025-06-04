@@ -77,7 +77,7 @@ function Signup() {
     const isPassword2Valid = formData.password2.length >= 8 && formData.password1 === formData.password2;
 
     return (
-      <div className="w-full flex items-center justify-center overflow-y-auto h-screen">
+      <div className="w-full flex items-center justify-center overflow-y-auto h-full">
         <div className="w-full max-w-80 sm:max-w-md rounded-2xl shadow-xl bg-gradient-to-b from-[#1F1C19] to-[#141415] px-4 sm:px-8 py-10 flex flex-col gap-4 relative border border-[#232325]">
           <div className="flex flex-col ">
             <h2 className="text-xl sm:text-3xl font-bold text-white text-center mb-1">New Here?</h2>

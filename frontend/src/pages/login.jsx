@@ -126,7 +126,18 @@ function Login() {
           {/* Password Field */}
           <div className="relative flex items-center justify-between border border-white/10 rounded-2xl px-4 sm:px-6 py-4 gap-1 sm:gap-2">
             <div className="flex items-center gap-2 sm:gap-4 flex-1 w-full">
-              <KeyRound className="text-[#b0b0b0] w-4 h-4 sm:w-5 sm:h-5" />
+            <button
+                type="button"
+                tabIndex={-1}
+                onClick={() => setShowPassword((v) => !v)}
+                className="text-[#b0b0b0] focus:outline-none cursor-pointer"
+              >
+                {showPassword ? (
+                  <EyeOff className='w-4 h-4 sm:w-5 sm:h-5' />
+                ) : (
+                  <Eye className='w-4 h-4 sm:w-5 sm:h-5' />
+                )}
+              </button>
               <div className="h-6 border-r border-white/10" />
               <input
                 type={showPassword ? "text" : "password"}
@@ -140,23 +151,10 @@ function Login() {
                 onChange={handleChange}
               />
             </div>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                tabIndex={-1}
-                onClick={() => setShowPassword((v) => !v)}
-                className="ml-2 text-[#b0b0b0] focus:outline-none cursor-pointer"
-              >
-                {showPassword ? (
-                  <EyeOff className='w-4 h-4 sm:w-5 sm:h-5' />
-                ) : (
-                  <Eye className='w-4 h-4 sm:w-5 sm:h-5' />
-                )}
-              </button>
               {isPasswordValid && (
                 <Check  className="text-black bg-[#83F180] w-4 h-4 sm:w-5 sm:h-5 rounded-full p-1" strokeWidth={4} />
               )}
-            </div>
+            
           </div>
           <div className="flex justify-end -mt-2 mb-2">
             <Link to="/forgot-password" className="text-sm text-[#b0b0b0] hover:underline">
@@ -174,7 +172,7 @@ function Login() {
         <div className="text-center mt-2 text-[#b0b0b0] text-sm">
           Don&apos;t have an account?{" "}
           <Link
-            to="/register"
+            to="/signup"
             className="text-[#FF7E2D] font-semibold hover:underline"
           >
             Sign up
