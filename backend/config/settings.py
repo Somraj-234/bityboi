@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-8v*r!$(xqx+@n-igvf*b^7q+l_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["bityboi.onrender.com","localhost","127.0.0.1"]
+ALLOWED_HOSTS = [os.getenv("SERVER_URL"),"localhost","127.0.0.1"]
 
 
 # Application definition
@@ -66,7 +66,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 # CSRF settings
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', os.getenv("SERVER_URL")]
 CSRF_COOKIE_SAMESITE = None  # Allow cross-site requests
 CSRF_COOKIE_HTTPONLY = False  # Allow JavaScript to read the cookie
 CSRF_USE_SESSIONS = False
