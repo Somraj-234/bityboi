@@ -66,7 +66,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 # CSRF settings
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', os.getenv("SERVER_URL")]
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', f'https://{os.getenv("SERVER_URL")}']
 CSRF_COOKIE_SAMESITE = None  # Allow cross-site requests
 CSRF_COOKIE_HTTPONLY = False  # Allow JavaScript to read the cookie
 CSRF_USE_SESSIONS = False
@@ -181,19 +181,19 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-    )
-}
-
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
+#     'default': dj_database_url.config(
+#         default=os.getenv('DATABASE_URL'),
+#     )
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
