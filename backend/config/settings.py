@@ -267,11 +267,6 @@ REST_AUTH_PASSWORD_RESET_USE_SITES_DOMAIN = False
 # Google OAuth2 settings
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        'APP': {
-            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
-            'secret': os.getenv('GOOGLE_CLIENT_SECRET'),
-            'key': ''
-        },
         'SCOPE': [
             'profile',
             'email',
