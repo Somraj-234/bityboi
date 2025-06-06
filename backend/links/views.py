@@ -73,7 +73,7 @@ class CustomGoogleOAuth2Client(OAuth2Client):
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
     client_class = CustomGoogleOAuth2Client
-    callback_url = "http://localhost:5173/auth/google/callback"
+    callback_url = os.getenv("FRONTEND_URL") + "/auth/google/callback"
 
 
 @api_view(['POST'])
