@@ -300,13 +300,25 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         },
     },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'allauth': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'dj_rest_auth': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
     'root': {
         'handlers': ['console'],
         'level': 'INFO',
-    },
-    'django': {
-        'handlers': ['console'],
-        'level': 'INFO',
-        'propagate': False,
     },
 }
