@@ -7,13 +7,12 @@ import { useAuth } from "../context/AuthContext";
 import { getUser } from "@/api/api";
 
 function Nav() {
-  const {logout} = useAuth();
+  const {logout, user} = useAuth();
   const location = useLocation();
   const dataPaths = ['/dashboard', '/create-link'];
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [user, setUser] = useState('');
 
   useEffect(()=>{
     const handleClickOutside = (event)=>{
@@ -28,17 +27,17 @@ function Nav() {
     
   },[])
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const user = await getUser();
-        setUser(user.data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-    fetchUser();
-  }, []);
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const user = await getUser();
+  //       setUser(user.data);
+  //     } catch (error) {
+  //       console.error('Error fetching user data:', error);
+  //     }
+  //   };
+  //   fetchUser();
+  // }, []);
 
   return (
     <div className="nav w-full h-20 sm:h-20 pt-4 bg-[#0D0D0D] border-b border-white/10">

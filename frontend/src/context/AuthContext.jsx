@@ -42,7 +42,6 @@ export const AuthProvider = ({ children }) => {
       console.log("Login response:", response.data); // Debug log
 
       const { access, refresh, user } = response.data;
-
       if (!access) {
         throw new Error("No access token received");
       }
@@ -58,7 +57,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("user", JSON.stringify(user));
       }
 
-      setUser(user);
+      await fetchUser();
       setIsAuthenticated(true);
       navigate("/dashboard", { replace: true });
     } catch (error) {
@@ -100,14 +99,22 @@ export const AuthProvider = ({ children }) => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${access}`;
 
       // Update state
-      setUser(userData);
+      await fetchUser();
       setIsAuthenticated(true);
-
       console.log("Social login successful, navigating to dashboard");
       navigate("/dashboard", { replace: true });
     } catch (error) {
       console.error("Social login failed:", error);
       throw error;
+    }
+  };
+
+  const fetchUser = async () => {
+    try {
+      const response = await getUser();
+      setUser(response.data);
+    } catch (error) {
+      console.error("Error fetching user:", error);
     }
   };
 
@@ -125,6 +132,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         login,
         socialLogin,
+        fetchUser,
       }}
     >
       {children}
