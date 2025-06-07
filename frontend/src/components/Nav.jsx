@@ -44,9 +44,10 @@ function Nav() {
         <div className="flex items-center justify-between gap-4 bg-transparent border-white/10 text-white pb-4 sm:px-16 px-4">
       <div className="logo">
         <Link to="/">
-          <div className="cursor-pointer flex items-end text-2xl sm:text-4xl font-bold gap-1 font-quanty">
+          <div className="cursor-pointer flex items-center text-2xl sm:text-4xl font-bold gap-1 font-quanty">
+            <img src="./apple-touch-icon.png" alt="" className="w-10 h-10 sm:w-12 sm:h-12" />
             BityBoi
-            <div className="w-2 h-2 sm:w-3 sm:h-3 bg-[#FF6E20] rounded-full mb-1.5" />
+            {/* <div className="w-2 h-2 sm:w-3 sm:h-3 bg-[#FF6E20] rounded-full mb-1.5" /> */}
           </div>
         </Link>
       </div>
