@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import OrangeButton from '../components/OrangeButton'
 import { createLink } from '../api/api'
+import { useNavigate } from 'react-router-dom';
 function CreateLink() {
   const [formData, setFormData] = useState({
     name: '',
@@ -9,6 +10,9 @@ function CreateLink() {
   })
 
  const [error, setError] = useState(null);
+ const [isLoading, setIsLoading] = useState(false);
+ const [isSuccess, setIsSuccess] = useState(false);
+ const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -18,16 +22,18 @@ function CreateLink() {
   }
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault()
-    // TODO: Add create link logic here
     try{
       const response = await createLink(formData);
+      setIsLoading(false);
       console.log(response);
+      setIsSuccess(true);
       navigate('/dashboard');
     }
     catch(error){
-    //   console.log(error.response.data.slug);
       setError(error.response.data);
+      setIsLoading(false);
     }
   }
 
@@ -38,7 +44,8 @@ function CreateLink() {
           <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-1">Create New Link</h2>
           <p className="text-center text-[#b0b0b0] text-sm sm:text-base">Hey lil bro, please enter your details</p>
         </div>
-        {error && <p className="text-red-500 text-center">{error.slug || error.name}</p>}
+        {error && <p className="text-red-500 text-center">{error.slug || error.name || error.url}</p>}
+        {isSuccess && <p className="text-green-500 text-center">Link created successfully</p>}
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 pt-2">
           {/* Name Field */}
           <div className='flex flex-col items-start gap-2'>
@@ -95,6 +102,8 @@ function CreateLink() {
           </div>
           </div>
           <OrangeButton
+          isLoading={isLoading}
+          loadingText={isLoading && "Creating link..."}
             width="w-full"
             type="submit"
             text="Create"

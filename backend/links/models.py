@@ -16,10 +16,13 @@ class Link(models.Model):
         null=True,  # Allow null temporarily for migration
         blank=True  # Allow blank temporarily for migration
     )
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50)
     url = models.URLField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     clicks = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ('user', 'name')
 
     def __str__(self):
         return f'{self.name} | {self.user.username if self.user else "No User"} | {self.clicks}'

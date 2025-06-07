@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, use } from "react";
 import { Link } from "react-router-dom";
 import { LogOut, Plus, Star, UserRound } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { getUser } from "@/api/api";
 
 function Nav() {
   const {logout} = useAuth();
@@ -12,6 +13,7 @@ function Nav() {
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [user, setUser] = useState('');
 
   useEffect(()=>{
     const handleClickOutside = (event)=>{
@@ -23,7 +25,20 @@ function Nav() {
     return ()=>{
       document.removeEventListener('mousedown', handleClickOutside);
     }
+    
   },[])
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const user = await getUser();
+        setUser(user.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+    fetchUser();
+  }, []);
 
   return (
     <div className="nav w-full h-20 sm:h-20 pt-4 bg-[#0D0D0D] border-b border-white/10">
@@ -52,10 +67,21 @@ function Nav() {
               {showDropdown && (
                 <div
                   ref={dropdownRef}
-                  className="absolute right-0 mt-2 w-40 bg-[#1a1a1b] hover:bg-[#161616] border border-white/10 rounded-xl shadow-lg z-50 py-2 transition-all duration-300 cursor-pointer"
+                  className="absolute right-0 mt-2 w-80 bg-[#1a1a1b]  border border-white/10 rounded-xl shadow-lg z-50 transition-all duration-300 cursor-pointer overflow-hidden flex flex-col items-center justify-start"
                 >
+                  <div className="flex items-center justify-start gap-2 w-full text-left px-4 py-2 hover:bg-[#161616]">
+                    <UserRound className="w-5 h-5 sm:w-8 sm:h-8" strokeWidth={1.5}/>      
+                    <div>
+                      <p className="text-white/70 text-sm sm:text-base font-bold">
+                        {user.username}
+                      </p>
+                      <p className="text-white/50 text-xs sm:text-sm truncate max-w-[100px] sm:max-w-60">
+                        {user.email}
+                      </p>
+                    </div>
+                  </div>
                   <button
-                    className="flex items-center justify-center gap-2 w-full text-left px-4 py-2 text-red-400"
+                    className="flex items-center justify-start gap-2 w-full text-left px-4 py-2 text-red-400 cursor-pointer hover:bg-[#161616]"
                     onClick={logout}
                   >
                     Logout <LogOut size={20}/>
