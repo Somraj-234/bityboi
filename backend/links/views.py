@@ -18,13 +18,17 @@ from .models import PasswordResetOTP
 from .serializers import RequestOTPSerializer, VerifyOTPSerializer, ResetPasswordSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
+from django.http import JsonResponse
 
 User = get_user_model()
 
 def root_link(request, link_slug):
     link = get_object_or_404(Link, slug=link_slug)
     link.click()
-    return redirect(link.url)
+    url = link.url
+    if not url.startswith(('http://', 'https://')):
+        url = 'https://' + url
+    return JsonResponse({'long_url': url})
 
 class LinkViewSet(viewsets.ModelViewSet):
     """

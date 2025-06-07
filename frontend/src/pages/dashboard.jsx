@@ -95,7 +95,7 @@ function Dashboard() {
                   <a href={`https://${link.url}`} target="_blank" rel="noopener noreferrer" className="underline text-white/70 hover:text-white/90 transition ">{link.url}</a>
                 </td>
                 <td className="py-2 sm:py-3 border-b border-white/10 truncate max-w-[180px] sm:max-w-[300px] px-2 sm:px-0">
-                  <a href={`${import.meta.env.VITE_SERVER_URL}/${link.slug}`} target="_blank" rel="noopener noreferrer" className="underline text-white/70 hover:text-white/90 transition">{import.meta.env.VITE_SERVER_URL}/{link.slug}</a>
+                  <a href={`${import.meta.env.VITE_FRONTEND_URL}/${link.slug}`} target="_blank" rel="noopener noreferrer" className="underline text-white/70 hover:text-white/90 transition">{import.meta.env.VITE_FRONTEND_URL}/{link.slug}</a>
                 </td>
                 <td className="py-2 sm:py-3 border-b border-white/10 truncate max-w-[100px] sm:max-w-[200px] px-2 sm:px-0">{link.clicks}</td>
               </tr>

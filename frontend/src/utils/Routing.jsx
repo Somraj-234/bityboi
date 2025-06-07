@@ -10,6 +10,7 @@ import GoogleCallback from '../pages/GoogleCallback'
 import Layout from '../components/Layout'
 import ForgotPassword from '@/pages/ForgotPassword'
 import CreateLink from '@/pages/CreateLink'
+import Redirect from '@/pages/Redirect'
 
 function AppRoutes() {
   const { isAuthenticated } = useAuth();
@@ -24,6 +25,7 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path='/create-link' element={<ProtectedRoute><CreateLink /></ProtectedRoute>} />
+        <Route path="/:slug" element={<Redirect />} />
       </Route>
     </Routes>
   );
