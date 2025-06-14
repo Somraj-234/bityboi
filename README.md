@@ -1,5 +1,7 @@
 # BITYBOI
 
+![BetterWritePrompt Preview](./frontend/public/og-image.png)
+
 *Shorten links, amplify engagement, simplify sharing.*
 
 ![last-commit](https://img.shields.io/github/last-commit/Somraj-234/bityboi?style=flat&logo=git&logoColor=white&color=0080ff)
