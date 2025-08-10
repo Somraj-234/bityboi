@@ -4,7 +4,6 @@ import { LogOut, Plus, Star, UserRound } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { getUser } from "@/api/api";
 
 function Nav() {
   const {logout, user} = useAuth();
